@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Samurais%20/static/css/main.7e5e3fd5.chunk.css",
+    "main.js": "/Samurais%20/static/js/main.ce1877dd.chunk.js",
+    "main.js.map": "/Samurais%20/static/js/main.ce1877dd.chunk.js.map",
+    "runtime-main.js": "/Samurais%20/static/js/runtime-main.983a4c33.js",
+    "runtime-main.js.map": "/Samurais%20/static/js/runtime-main.983a4c33.js.map",
+    "static/js/2.5edd1e1f.chunk.js": "/Samurais%20/static/js/2.5edd1e1f.chunk.js",
+    "static/js/2.5edd1e1f.chunk.js.map": "/Samurais%20/static/js/2.5edd1e1f.chunk.js.map",
+    "index.html": "/Samurais%20/index.html",
+    "precache-manifest.631eafb134b5cca6e754868044dd586f.js": "/Samurais%20/precache-manifest.631eafb134b5cca6e754868044dd586f.js",
+    "service-worker.js": "/Samurais%20/service-worker.js",
+    "static/css/main.7e5e3fd5.chunk.css.map": "/Samurais%20/static/css/main.7e5e3fd5.chunk.css.map",
+    "static/js/2.5edd1e1f.chunk.js.LICENSE": "/Samurais%20/static/js/2.5edd1e1f.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.983a4c33.js",
+    "static/js/2.5edd1e1f.chunk.js",
+    "static/css/main.7e5e3fd5.chunk.css",
+    "static/js/main.ce1877dd.chunk.js"
+  ]
+}
