@@ -2,7 +2,7 @@
   "name": "samurais",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://altufjevfrol.github.io/Samurais /",
+  "homepage": "http://altufjevfrol.github.io/Samurais/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
