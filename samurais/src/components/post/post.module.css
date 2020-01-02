@@ -1,0 +1,17 @@
+.post {
+
+}
+
+.like {
+    cursor: pointer;
+    width: auto;
+}
+
+.like img {
+    width: 50px;
+    vertical-align: middle;
+}
+
+.like span {
+    vertical-align: middle;
+}
