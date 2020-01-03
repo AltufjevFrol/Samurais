@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './posts.module.css'
-import Post from '../post/post.jsx'
+import styles from './posts.module.css';
+import Post from './post/post.jsx';
 
 class Posts extends React.Component {
     constructor(props) {

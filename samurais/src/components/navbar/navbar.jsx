@@ -7,9 +7,9 @@ function Navbar(){
 				<ul>
 					<li><NavLink className={styles.ref} activeClassName={styles.active} to="/profile">Profile</NavLink></li>
 					<li><NavLink className={styles.ref} activeClassName={styles.active} to="/dialogs">Dialogs</NavLink></li>
-					<li><NavLink className={styles.ref} activeClassName={styles.active} to="/">News</NavLink></li>
-					<li><NavLink className={styles.ref} activeClassName={styles.active} to="/">Music</NavLink></li>
-					<li><NavLink className={styles.ref} activeClassName={styles.active} to="/">Settings</NavLink></li>
+					<li><NavLink className={styles.ref} activeClassName={styles.active} to="/1">News</NavLink></li>
+					<li><NavLink className={styles.ref} activeClassName={styles.active} to="/2">Music</NavLink></li>
+					<li><NavLink className={styles.ref} activeClassName={styles.active} to="/3">Settings</NavLink></li>
 				</ul>
 			</nav>
 	)
