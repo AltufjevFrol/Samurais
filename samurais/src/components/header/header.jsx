@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './header.module.css'
 
-function Header(){
+function Header(props){
 	let logo =(
 	 <div className={styles.logo}>
 		<svg version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 283.5 283.5">
