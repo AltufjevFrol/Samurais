@@ -1,43 +1,47 @@
 import React from 'react';
 import styles from './dialogs.module.css';
-import {NavLink} from 'react-router-dom'
 
+import Dialog from './dialog/dialog.jsx';
+import Message from './message/message.jsx'
+import Sender from "../sender/sender";
 
-const DialogsItem = (props) => {
-    let path = `/dialogs/${props.id}`;
-    return (
-        <div className={styles.item}>
-            <NavLink to={path} className={styles.ref} activeClassName={styles.active}>{props.name}</NavLink>
-        </div>
-    )
-};
+class Dialogs extends React.Component {
+    constructor(props) {
+        super(props);
+        this.messages = props.data.messagesData;
+        this.dialogs = props.data.dialogsData;
+        this.callbacks = props.callbacks;
+        this.state = {};
+        this.update=this.update.bind(this);
+        this.refDialogs=props.refDialogs;
 
-const Message = (props) => {
-    return (
-        <div className={styles.message}>{props.message.message}
-            <span>Like</span>
-            <span> {props.message.likes}</span>
-        </div>
-    )
-};
+    }
 
-const Dialogs = (props) => {
+    update() {
+        this.setState({});
+    }
 
-    let dialogs = props.dialogs;
-    let messages = props.messages;
+    render() {
+        console.log(this.refDialogs);
+        let dialogsItems = this.dialogs.map((dialog) => <Dialog key={dialog.id} name={dialog.name} id={dialog.id}/>);
+        let messagesItems = this.messages.map((message) => <Message key={message.id} message={message}/>);
 
-    let dialogsItems = dialogs.map((dialog) => <DialogsItem key={dialog.id} name={dialog.name} id={dialog.id}/>);
-    let messagesItems = messages.map((message) => <Message key={message.id} message={message}/>);
-
-    return (
-        <div className={styles.dialogs}>
-            <div className={styles.dialogsItems}>
-                {dialogsItems}
+        return (
+            <div className={styles.dialogs}>
+                <div className={styles.dialogsItems}>
+                    {dialogsItems}
+                </div>
+                <div className={styles.messages}>
+                    {messagesItems}
+                </div>
+                <Sender
+                    data={this.messages}
+                    callback={this.callbacks.addMessage}
+                    refDialogs={this.refDialogs}
+                />
             </div>
-            <div className={styles.messages}>
-                {messagesItems}
-            </div>
-        </div>
-    )
-};
+        )
+    };
+}
+
 export default Dialogs;
