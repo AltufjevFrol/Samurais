@@ -4,24 +4,25 @@ import styles from './post.module.css';
 class Post extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {message: props.message};
-        this.likeIncrement= this.likeIncrement.bind(this);
+        this.state = {likes: props.data.likes};
+        this.likeIncrement = this.likeIncrement.bind(this);
     }
 
     likeIncrement() {
-        this.props.message.likes = ++this.props.message.likes;
-        this.setState({message: this.props.message});
+        ++this.props.data.likes;
+        this.setState({likes: ++this.state.likes});
     }
 
     render() {
-        let message = this.props.message;
-        console.log(`message ${this.props.message.id}`)
+        let post = this.props.data;
+        console.log(post)
         return (
-            <div>
-                <div className={styles.post}>{message.message}</div>
-                <div className={styles.like}><img onClick={this.likeIncrement} alt="fingerUp"
-                                                  src="https://upload.wikimedia.org/wikipedia/commons/5/50/Facebook_Thumb_icon.svg"/>
-                    <span>Like</span><span> {this.props.message.likes}</span>
+            <div className={styles.blockPost}>
+                <div className={styles.post}>{post.message}</div>
+                <div className={styles.like} onClick={this.likeIncrement}>
+                    <div className={styles.heart}>
+                        {post.likes===0? <span/> :<span> {post.likes}</span>}
+                    </div>
                 </div>
             </div>
         )

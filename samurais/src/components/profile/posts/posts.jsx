@@ -5,44 +5,37 @@ import Post from './post/post.jsx';
 class Posts extends React.Component {
     constructor(props) {
         super(props);
+        this.posts = props.data;
         this.state = {
-            messages: props.messages,
+            update: false,
         };
         this.addMessage = this.addMessage.bind(this);
         this.keyDown = this.keyDown.bind(this);
+        this.imput = React.createRef();
     }
 
     addMessage() {
-        if (document.getElementById('field').innerText !== '') {
-            /*let id = ++this.state.messages.pop().id;
-            let message = document.getElementById('field').innerText;
+        if (this.imput.current.innerText !== '') {
+            let lastPost = this.posts[this.posts.length - 1];
+            let id = lastPost ? lastPost.id + 1 : 1;
+            let message = this.imput.current.innerText;
             let likes = 0;
-            let messageItem = {id,message,likes};
-            let messages=this.state.messages;
-            messages.push(messageItem);
-            document.getElementById('field').innerText = "";
+            let PostsItem = {id, message, likes};
+            this.posts.push(PostsItem);
+            this.imput.current.innerText = "New post";
             this.setState({
-                messages: messages
-            });*/
-            let id = ++this.props.messages[this.props.messages.length-1].id;
-            let message = document.getElementById('field').innerText;
-            let likes = 0;
-            let messageItem = {id,message,likes};
-            this.props.messages.push(messageItem);
-            document.getElementById('field').innerText = "";
-            this.setState({
-                messages: this.props.messages
+                update: !this.state.update,
             });
         }
     }
 
     componentDidUpdate() {
         let winHeigh = document.documentElement.scrollHeight;
-        window.scrollTo(0,winHeigh);
+        window.scrollTo(0, winHeigh);
     }
 
     keyDown(e) {
-        if(e.nativeEvent.key === 'Enter'){
+        if (e.nativeEvent.key === 'Enter') {
             e.preventDefault();
             this.addMessage();
         }
@@ -50,18 +43,17 @@ class Posts extends React.Component {
 
     render() {
 
-        let posts = this.state.messages.map((message) => <Post key={message.id} message={message}/>);
+        let posts = this.posts.map((post) => <Post key={post.id} data={post}/>);
         return (
             <div className={styles.blok_posts}>
                 <h1>My posts</h1>
                 <div className={styles.form}>
-                    <div id="field" contentEditable="true" className={styles.field} onKeyDown={this.keyDown}>New posts
+                    <div ref={this.imput} contentEditable="true" className={styles.field} onKeyDown={this.keyDown}>New
+                        post
                     </div>
                     <div className={styles.button} onClick={this.addMessage}>Send</div>
                 </div>
-                <div className={styles.post_wraper}>
-                    {posts}
-                </div>
+                {posts}
             </div>
         )
     }

@@ -1,17 +1,37 @@
-.post {
+.blockPost {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    padding: 20px;
+    margin: 20px;
+    background: azure;
+    border-radius: 5px;
+    box-shadow: black 1px 1px 5px;
+}
 
+.post {
+    margin: 10px 20px;
 }
 
 .like {
     cursor: pointer;
     width: auto;
+    align-self: flex-end;
+    display: flex;
+    justify-content: space-around;
 }
 
-.like img {
-    width: 50px;
-    vertical-align: middle;
+.heart {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    background: url(/img/PngItem_6449.png) 2px 3px/190% 190% no-repeat;
+    justify-content: center;
+    align-items: center;
 }
 
-.like span {
-    vertical-align: middle;
+
+
+.heart span {
+    font-weight: bold;
 }
