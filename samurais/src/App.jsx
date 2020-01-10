@@ -7,23 +7,14 @@ import Dialogs from './components/dialogs/dialogs.jsx';
 import {Route} from 'react-router-dom';
 
 function App(props) {
-    let data = props.data;
-    let callbacks = props.callbacks;
-    let refDialogs = React.createRef();
+    let store = props.store;
     return (
         < div className="app-wraper">
             < Header/>
             < Navbar/>
             < div className="app-wraper-content">
-                <Route exact path="/profile" render={(props) => (<Profile {...props} data={data.profile.postsData}/>)}/>
-                <Route path="/dialogs" render={(props) => (
-                    <Dialogs {...props}
-                             data={data.dialogs}
-                             callbacks={callbacks}
-                             ref={refDialogs}
-                             refDialogs={refDialogs}
-                    />)}
-                />
+                <Route exact path="/profile" render={(props) => (<Profile {...props} store={store}/>)}/>
+                <Route path="/dialogs" render={(props) => (<Dialogs {...props} store={store}/>)}/>
             </div>
         </div>
     );

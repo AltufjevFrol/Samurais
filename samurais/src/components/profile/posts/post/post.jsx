@@ -1,32 +1,25 @@
 import React from 'react';
 import styles from './post.module.css';
+import {addLikePostCreateAction} from "../../../../redux/profileReducer";
 
-class Post extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {likes: props.data.likes};
-        this.likeIncrement = this.likeIncrement.bind(this);
-    }
+function Post(props) {
 
-    likeIncrement() {
-        ++this.props.data.likes;
-        this.setState({likes: ++this.state.likes});
-    }
+	function clickLike() {
+		let action = addLikePostCreateAction(props.post.id);
+		props.despatch(action);
+	}
 
-    render() {
-        let post = this.props.data;
-        console.log(post)
-        return (
-            <div className={styles.blockPost}>
-                <div className={styles.post}>{post.message}</div>
-                <div className={styles.like} onClick={this.likeIncrement}>
-                    <div className={styles.heart}>
-                        {post.likes===0? <span/> :<span> {post.likes}</span>}
-                    </div>
-                </div>
-            </div>
-        )
-    }
+	return (
+		<div className={styles.blockPost}>
+			<div className={styles.post}>{props.post.post}</div>
+			<div className={styles.like} onClick={clickLike}>
+				<div className={styles.heart}>
+					{props.post.likes === 0 ? <span/> : <span> {props.post.like}</span>}
+				</div>
+			</div>
+		</div>
+	)
+
 
 }
 

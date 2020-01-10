@@ -1,62 +1,48 @@
 import React from 'react';
 import styles from './posts.module.css';
 import Post from './post/post.jsx';
+import Sender from '../../sender/sender';
+import {addPostCreateAction} from '../../../redux/profileReducer';
+import {addNewSymbolPostCreateAction} from '../../../redux/profileReducer';
 
-class Posts extends React.Component {
-    constructor(props) {
-        super(props);
-        this.posts = props.data;
-        this.state = {
-            update: false,
-        };
-        this.addMessage = this.addMessage.bind(this);
-        this.keyDown = this.keyDown.bind(this);
-        this.imput = React.createRef();
-    }
+function Posts(props) {
 
-    addMessage() {
-        if (this.imput.current.innerText !== '') {
-            let lastPost = this.posts[this.posts.length - 1];
-            let id = lastPost ? lastPost.id + 1 : 1;
-            let message = this.imput.current.innerText;
-            let likes = 0;
-            let PostsItem = {id, message, likes};
-            this.posts.push(PostsItem);
-            this.imput.current.innerText = "New post";
-            this.setState({
-                update: !this.state.update,
-            });
-        }
-    }
+	let refField = React.createRef();
 
-    componentDidUpdate() {
-        let winHeigh = document.documentElement.scrollHeight;
-        window.scrollTo(0, winHeigh);
-    }
+	function keyDown(e) {
+		if (e.nativeEvent.key === 'Enter') {
+			e.preventDefault();
+			clickSend();
+		}
+	}
 
-    keyDown(e) {
-        if (e.nativeEvent.key === 'Enter') {
-            e.preventDefault();
-            this.addMessage();
-        }
-    }
+	function clickSend() {
+		if (refField.current.innerText !== '') {
+			let post = refField.current.innerText;
+			props.despatch({type: 'ADD-POST', text: post});
+			refField.current.innerText = '';
+		}
+	}
 
-    render() {
-
-        let posts = this.posts.map((post) => <Post key={post.id} data={post}/>);
-        return (
-            <div className={styles.blok_posts}>
-                <h1>My posts</h1>
-                <div className={styles.form}>
-                    <div ref={this.imput} contentEditable="true" className={styles.field} onKeyDown={this.keyDown}>New
-                        post
-                    </div>
-                    <div className={styles.button} onClick={this.addMessage}>Send</div>
-                </div>
-                {posts}
-            </div>
-        )
-    }
+	let posts = props.profile.postsData.map((post) => (
+		<Post
+			key={post.id}
+			post={post}
+			despatch={props.despatch}
+		/>
+	));
+	return (
+		<div className={styles.blok_posts}>
+			<h1>My posts</h1>
+			<Sender
+				newText={props.profile.newPostText}
+				hendlerSend={props.despatch}
+				SendCreateAction={addPostCreateAction}
+				NewSymbolTextCreateAction={addNewSymbolPostCreateAction}
+			/>
+			{posts}
+		</div>
+	)
 
 }
 
