@@ -6,7 +6,12 @@ export const addPostCreateAction = () => ({type: ADD_POST});
 export const addLikePostCreateAction = (idPost) => ({type: ADD_LIKE_POST, idPost: idPost});
 export const addNewSymbolPostCreateAction = (newText) => ({type: ADD_NEW_SYMBOL_POST, newText: newText});
 
-function profileReducer(state, action) {
+let initialState = {
+	postsData: [],
+	newPostText: '',
+};
+
+function profileReducer(state = initialState, action) {
 
 	const addPost = () => {
 		let lastPost = state.postsData[state.postsData.length - 1];

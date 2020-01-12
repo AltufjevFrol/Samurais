@@ -1,4 +1,4 @@
-function navbarReducer (state, action){
+function navbarReducer(state = null, action) {
 	return state;
 }
 

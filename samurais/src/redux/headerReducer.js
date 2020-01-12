@@ -1,4 +1,4 @@
-function headerReducer (state, action){
+function headerReducer(state = null, action) {
 	return state;
 }
 

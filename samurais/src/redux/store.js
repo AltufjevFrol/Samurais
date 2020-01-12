@@ -104,7 +104,7 @@ const store = {
 		this._updateApp = observer;
 	},
 
-	despatch(action) {
+	dispatch(action) {
 
 		this.state.profile = profileReducer(this.state.profile, action);
 		this.state.dialogs = dialogsReducer(this.state.dialogs, action);
@@ -117,4 +117,3 @@ const store = {
 
 
 export default store;
-window.store = store;
