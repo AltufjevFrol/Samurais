@@ -8,6 +8,7 @@ import {Route} from 'react-router-dom';
 
 function App(props) {
     let store = props.store;
+
     return (
         < div className="app-wraper">
             < Header/>

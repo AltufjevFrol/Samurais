@@ -3,12 +3,15 @@ import styles from './dialogs.module.css';
 
 import Dialog from './dialog/dialog.jsx';
 import Message from './message/message.jsx'
-import Sender from '../sender/sender';
-import {addMessageCreateAction, addNewSymbolMessageCreateAction} from "../../redux/dialogsReducer";
+import SenderMessageContainer from './SendMessageContainer';
+
 
 function Dialogs(props) {
-	let dialogsItems = props.store.state.dialogs.dialogsData.map((dialog) => <Dialog key={dialog.id} dialog={dialog}/>);
-	let messagesItems = props.store.state.dialogs.messagesData.map((message) => <Message key={message.id} message={message}/>);
+	let dialogsItems = props.store.getState().dialogs.dialogsData
+		.map((dialog) => <Dialog key={dialog.id} dialog={dialog}/>);
+
+	let messagesItems = props.store.getState().dialogs.messagesData
+		.map((message) => <Message key={message.id} message={message}/>);
 
 	return (
 		<div className={styles.dialogs}>
@@ -18,11 +21,7 @@ function Dialogs(props) {
 			<div className={styles.messages}>
 				{messagesItems}
 			</div>
-			<Sender
-				hendlerSend={props.store.despatch.bind(props.store)}
-				SendCreateAction={addMessageCreateAction}
-				NewSymbolTextCreateAction={addNewSymbolMessageCreateAction}
-			/>
+			<SenderMessageContainer store={props.store}/>
 		</div>
 	)
 

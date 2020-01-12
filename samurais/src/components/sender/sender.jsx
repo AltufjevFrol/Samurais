@@ -7,8 +7,7 @@ function Sender(props) {
 	function clickSend() {
 		if (refField.current.innerText !== '') {
 			refField.current.innerText = '';
-			let action = props.SendCreateAction();
-			props.hendlerSend(action);
+			props.hendlerSend();
 		}
 	}
 
@@ -21,8 +20,7 @@ function Sender(props) {
 
 	function enterSymbol() {
 		let text = refField.current.innerText;
-		let action = props.NewSymbolTextCreateAction(text);
-		props.hendlerSend(action);
+		props.hendlerInput(text);
 	}
 
 	return (
