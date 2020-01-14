@@ -5,21 +5,22 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 import App from "./App";
 import store from './redux/redux-store';
+import Context from './context';
 
-function updateApp(store) {
+function updateApp() {
 
 	ReactDOM.render(
 		< BrowserRouter>
-			< App
-				store={store}
-			/>
+			<Context.Provider value={store}>
+				< App/>
+			</Context.Provider>
 		</BrowserRouter>,
 		document.getElementById('root')
 	);
 }
 
-updateApp(store);
-store.subscribe(()=>updateApp(store));
+updateApp();
+store.subscribe(updateApp);
 
 
 // If you want your app to work offline and load faster, you can change

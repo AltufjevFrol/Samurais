@@ -8,7 +8,7 @@ function Profile(props) {
 	return (
 		<div>
 			<ProfileInfo/>
-			<Posts store={props.store}/>
+			<Posts/>
 		</div>
 	)
 

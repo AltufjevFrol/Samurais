@@ -1,20 +1,23 @@
 import React from 'react';
 import {addLikePostCreateAction} from "../../../../redux/profileReducer";
 import Post from "./post";
+import Context from "../../../../context";
 
 function PostContainer(props) {
+	return <Context.Consumer>
+		{(store) => {
+			let post = props.post;
+			let textPost = post.post;
+			let likes = post.like;
 
-	let post = props.store.getState().profile.postsData.filter((post) => post.id === props.post.id)[0];
-	let textPost = post.post;
-	let likes = post.like;
+			function addLike() {
+				let action = addLikePostCreateAction(post.id);
+				store.dispatch(action);
+			}
 
-	function addLike() {
-		let action = addLikePostCreateAction(post.id);
-		props.store.dispatch(action);
-	}
-
-	return <Post post={textPost} likes={likes} hendlerLike={addLike}/>
-
+			return <Post post={textPost} likes={likes} hendlerLike={addLike}/>
+		}}
+	</Context.Consumer>
 
 }
 

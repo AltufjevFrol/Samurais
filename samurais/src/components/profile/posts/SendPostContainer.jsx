@@ -1,24 +1,36 @@
 import React from 'react';
-import {addPostCreateAction, addNewSymbolPostCreateAction} from '../../../redux/profileReducer'
-import Sender from '../../sender/sender'
+import {addPostCreateAction, addNewSymbolPostCreateAction} from '../../../redux/profileReducer';
+import Sender from '../../sender/sender';
+import Context from '../../../context'
+
 function SendPostContainer(props) {
 
-	function addPost() {
-		let action = addPostCreateAction();
-		props.store.dispatch(action);
-	}
 
 
-	function addNewSymbolPost(text) {
-		let action = addNewSymbolPostCreateAction(text);
-		props.store.dispatch(action);
-	}
+		return <Context.Consumer>
 
-	return (
-		<Sender
-			hendlerSend={addPost}
-			hendlerInput={addNewSymbolPost}
-		/>)
+			{function (store) {
+				function addPost() {
+					let action = addPostCreateAction();
+					store.dispatch(action);
+				}
+
+
+				function addNewSymbolPost(text) {
+					let action = addNewSymbolPostCreateAction(text);
+					store.dispatch(action);
+				}
+
+				return (
+					<Sender
+						hendlerSend={addPost}
+						hendlerInput={addNewSymbolPost}
+					/>)
+			}
+			}
+		</Context.Consumer>
+
 }
+
 
 export default SendPostContainer;
