@@ -1,28 +1,26 @@
 import React from 'react';
 import styles from './posts.module.css';
-import PostContainer from './post/PostContainer';
-import SendPostContainer from './SendPostContainer';
-import Context from '../../../context';
+import Post from './post/post';
+import Sender from '../../sender/sender';
+
 
 function Posts(props) {
 
-	return <Context.Consumer>
-		{function (store) {
-			let posts = store.getState().profile.postsData.map((post) => (
-				<PostContainer key={post.id} post={post}/>));
+	let postsData = props.postsData;
+	let addPost = props.addPost;
+	let addNewSymbolPost = props.addNewSymbolPost;
+	let addLike = props.addLike;
 
-			return (
-				<div className={styles.blok_posts}>
-					<h1>My posts</h1>
-					<SendPostContainer/>
-					{posts}
-				</div>
-			)
-		}
-		}
-	</Context.Consumer>
+	let posts = postsData.map((post) => (
+		<Post key={post.id} post={post.post} likes={post.like} hendlerLike={addLike}/>));
 
-
+	return (
+		<div className={styles.blok_posts}>
+			<h1>My posts</h1>
+			<Sender hendlerSend={addPost} hendlerInput={addNewSymbolPost}/>
+			{posts}
+		</div>
+	)
 }
 
 export default Posts;

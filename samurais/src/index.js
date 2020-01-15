@@ -5,15 +5,16 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 import App from "./App";
 import store from './redux/redux-store';
-import Context from './context';
+/*import Context, {Provider} from './context';*/
+import {Provider} from 'react-redux'
 
 function updateApp() {
 
 	ReactDOM.render(
-		< BrowserRouter>
-			<Context.Provider value={store}>
+		<BrowserRouter >
+			<Provider store={store}>
 				< App/>
-			</Context.Provider>
+			</Provider>
 		</BrowserRouter>,
 		document.getElementById('root')
 	);

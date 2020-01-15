@@ -3,8 +3,8 @@ import './App.css';
 import Header from './components/header/header.jsx';
 import Navbar from './components/navbar/navbar.jsx';
 import Profile from './components/profile/profile.jsx';
-import Dialogs from './components/dialogs/dialogs.jsx';
 import {Route} from 'react-router-dom';
+import DialogsContainer from "./components/dialogs/dialogsContainer";
 
 function App(props) {
 
@@ -13,8 +13,8 @@ function App(props) {
 			< Header/>
 			< Navbar/>
 			< div className="app-wraper-content">
-				<Route exact path="/profile" render={(props) => (<Profile {...props} />)}/>
-				<Route path="/dialogs" render={(props) => (<Dialogs {...props} />)}/>
+				<Route exact path="/profile" component={Profile}/>
+				<Route path="/dialogs" component={DialogsContainer}/>
 			</div>
 		</div>
 	);
