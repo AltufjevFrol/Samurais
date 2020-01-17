@@ -12,7 +12,7 @@ function Posts(props) {
 	let addLike = props.addLike;
 
 	let posts = postsData.map((post) => (
-		<Post key={post.id} post={post.post} likes={post.like} hendlerLike={addLike}/>));
+		<Post key={post.id} post={post} likes={post.like} hendlerLike={addLike}/>));
 
 	return (
 		<div className={styles.blok_posts}>

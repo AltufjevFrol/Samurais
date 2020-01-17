@@ -29,24 +29,28 @@ function dialogsReducer(state = initialState, action) {
 		state.newMessageText = '';
 		let time = new Date();
 		let MessageItem = {id, from, to, message, time};
-		state.messagesData.push(MessageItem);
+		return {
+			...state,
+			messagesData: [...state.messagesData, MessageItem]
+		};
 	};
 
 	const addNewSymbolMessage = (newText) => {
-		state.newMessageText = newText;
+		return {
+			...state,
+			newMessageText: newText
+		}
 	};
 
 	switch (action.type) {
 		case ADD_MESSAGE:
-			addMessage();
-			break;
+			return addMessage();
 		case ADD_NEW_SYMBOL_MESSAGE:
-			addNewSymbolMessage(action.newText);
-			break;
+			return addNewSymbolMessage(action.newText);
 		default:
 			return state;
 	}
-	return state;
+
 }
 
 export default dialogsReducer;

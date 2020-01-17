@@ -23,8 +23,8 @@ const mapDispatchToProps = (dispatch)=> {
 		addNewSymbolPost(newText) {
 			dispatch(addNewSymbolPostCreateAction(newText));
 		},
-		addLike() {
-			dispatch(addLikePostCreateAction())
+		addLike(idPost) {
+			dispatch(addLikePostCreateAction(idPost))
 		}
 	}
 

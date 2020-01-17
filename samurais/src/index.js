@@ -8,20 +8,24 @@ import store from './redux/redux-store';
 /*import Context, {Provider} from './context';*/
 import {Provider} from 'react-redux'
 
-function updateApp() {
+ReactDOM.render(
+	<BrowserRouter >
+		<Provider store={store}>
+			< App/>
+		</Provider>
+	</BrowserRouter>,
+	document.getElementById('root')
+);
 
-	ReactDOM.render(
-		<BrowserRouter >
-			<Provider store={store}>
-				< App/>
-			</Provider>
-		</BrowserRouter>,
-		document.getElementById('root')
-	);
+/*
+function updateApp() {
 }
 
 updateApp();
-store.subscribe(updateApp);
+store.subscribe(()=>{
+	console.log(store.getState());
+updateApp();
+});*/
 
 
 // If you want your app to work offline and load faster, you can change

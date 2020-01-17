@@ -3,6 +3,7 @@ import {addMessageCreateAction, addNewSymbolMessageCreateAction} from '../../red
 import Dialogs from "./dialogs";
 
 const mapStateToProps = (state) => {
+
 	return {
 		dialogsData: state.dialogs.dialogsData,
 		messagesData: state.dialogs.messagesData,

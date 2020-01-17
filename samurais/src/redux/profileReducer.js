@@ -14,6 +14,8 @@ let initialState = {
 function profileReducer(state = initialState, action) {
 
 	const addPost = () => {
+		let copyState = {...state};
+		copyState.postsData = [...state.postsData];
 		let lastPost = state.postsData[state.postsData.length - 1];
 		let id = lastPost ? lastPost.id + 1 : 1;
 		let like = 0;
@@ -21,33 +23,40 @@ function profileReducer(state = initialState, action) {
 		state.newPostText = '';
 		let time = new Date();
 		let PostItem = {id, post, like, time};
-		state.postsData.push(PostItem);
+		copyState.postsData.push(PostItem);
+		return copyState;
 	};
 
 	const addLikePost = (idPost) => {
-		let post = state.postsData.find((post) => post.id === idPost);
+
+		let copyState={
+			...state,
+			postsData: [...state.postsData]
+		};
+
+		let post = copyState.postsData.find((post) => post.id === idPost);
 		if (post) {
 			++post.like;
 		}
+		return copyState;
 	};
 	const addNewSymbolPost = (newText) => {
-		state.newPostText = newText;
+		let copyState = {...state};
+		copyState.newPostText = newText;
+		return copyState;
 	};
 
 	switch (action.type) {
 		case ADD_POST:
-			addPost();
-			break;
+			return addPost();
 		case ADD_LIKE_POST:
-			addLikePost(action.idPost);
-			break;
+			return addLikePost(action.idPost);
 		case ADD_NEW_SYMBOL_POST:
-			addNewSymbolPost(action.newText);
-			break;
+			return addNewSymbolPost(action.newText);
 		default:
 			return state
 	}
-	return state;
+
 }
 
 export default profileReducer;
