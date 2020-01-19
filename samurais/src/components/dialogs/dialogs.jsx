@@ -19,7 +19,7 @@ function Dialogs(props) {
 			<div className={styles.messages}>
 				{messagesItems}
 			</div>
-			<Sender hendlerSend={props.addMessage} hendlerInput={props.addNewSymbolMessage}/>)
+			<Sender hendlerSend={props.addMessage} hendlerInput={props.addNewSymbolMessage}/>
 		</div>
 	)
 

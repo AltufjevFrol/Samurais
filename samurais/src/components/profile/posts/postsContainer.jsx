@@ -11,7 +11,7 @@ import {
 const mapStateToProps = (state)=> {
 
 	return {
-		postsData: state.profile.postsData,
+		postsData: state.profilePage.postsData,
 	}
 };
 

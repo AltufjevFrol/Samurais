@@ -22,7 +22,7 @@ let state = {
     },
     header: null,
     navbar: null,
-    profile: {postsData: []},
+    profilePage: {postsData: []},
     sender: {newText: ''}
 };
 
@@ -41,18 +41,18 @@ export function addMessage(text) {
 }
 
 export function addPost(text) {
-    let lastPost = state.profile.postsData[state.profile.postsData.length - 1];
+    let lastPost = state.profilePage.postsData[state.profilePage.postsData.length - 1];
     let id = lastPost ? lastPost.id + 1 : 1;
     let like = 0;
     let post = text;
     state.sender.newText = '';
     let PostItem = {id, post, like};
-    state.profile.postsData.push(PostItem);
+    state.profilePage.postsData.push(PostItem);
     updateApp(state, addMessage, addPost, addLikePost);
 }
 
 export function addLikePost(idPost) {
-    let post = state.profile.postsData.find((post) => post.id === idPost);
+    let post = state.profilePage.postsData.find((post) => post.id === idPost);
     if (post) {
         ++post.like;
         updateApp(state, addMessage, addPost, addLikePost)
@@ -73,7 +73,7 @@ import headerReducer from './headerReducer'
 
 const store = {
 	_state: {
-		dialogs: {
+		dialogsPage: {
 			dialogsData: [
 				{id: 1, name: 'Dimych', messages: []},
 				{id: 2, name: 'Andrew', messages: []},
@@ -87,7 +87,7 @@ const store = {
 		},
 		header: null,
 		navbar: null,
-		profile: {
+		profilePage: {
 			postsData: [],
 			newPostText: '',
 		},
@@ -106,8 +106,8 @@ const store = {
 
 	dispatch(action) {
 
-		this.state.profile = profileReducer(this.state.profile, action);
-		this.state.dialogs = dialogsReducer(this.state.dialogs, action);
+		this.state.profilePage = profileReducer(this.state.profilePage, action);
+		this.state.dialogsPage = dialogsReducer(this.state.dialogsPage, action);
 		this.state.navbar = navbarReducer(this.state.navbar, action);
 		this.state.header = headerReducer(this.state.header, action);
 

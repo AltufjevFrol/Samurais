@@ -25,11 +25,9 @@
     display: inline-flex;
     width: 40px;
     height: 40px;
-    background: url(/img/PngItem_6449.png) 2px 3px/190% 190% no-repeat;
     justify-content: center;
     align-items: center;
 }
-
 
 
 .heart span {
