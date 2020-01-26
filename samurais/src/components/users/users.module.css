@@ -1,0 +1,37 @@
+.container {
+
+}
+
+.containerButton {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.containerUsers {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    height: 100vh;
+    overflow: auto;
+}
+
+.userWrap {
+    display: flex;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+}
+
+.avatar img {
+    width: 100%;
+}
+
+.getUsers {
+    justify-content: center;
+    align-self: center;
+}
