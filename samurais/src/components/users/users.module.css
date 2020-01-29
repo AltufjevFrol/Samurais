@@ -1,5 +1,7 @@
 .container {
-
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
 }
 
 .containerButton {
@@ -19,6 +21,7 @@
 }
 
 .userWrap {
+    margin: 10px;
     display: flex;
 }
 
@@ -31,7 +34,37 @@
     width: 100%;
 }
 
-.getUsers {
-    justify-content: center;
+
+.links {
     align-self: center;
+    margin: 10px;
+}
+
+.link {
+    cursor: pointer;
+    text-decoration: underline;
+    margin: 5px;
+}
+
+.curentMarker {
+    font-weight: bold;
+}
+
+.loadingBanner {
+    margin: auto;
+    align-self: center;
+}
+
+.arrows{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.countUsers{
+    align-self: center;
+    margin: 10px;
+}
+
+.selectCountUsers{
+    margin: 5px;
 }
