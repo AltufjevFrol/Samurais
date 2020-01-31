@@ -6,10 +6,10 @@ import ProfileInfo from "./profile_info/profileInfo.jsx";
 function Profile() {
 
 	return (
-		<div>
+		<>
 			<ProfileInfo/>
-			<PostsContainer/>
-		</div>
+			<PostsContainer  />
+		</>
 	)
 
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './navbar.module.css';
 import {NavLink} from 'react-router-dom'
-function Navbar(){
+function Navbar(props){
+
 	return (
 			<nav className={styles.nav}>
 				<ul>

@@ -1,5 +1,4 @@
 import {connect} from "react-redux";
-import Users from "./users";
 import {
 	changePageSizeCA,
 	followCA,
@@ -11,6 +10,86 @@ import {
 	linkDownCA,
 	setLinkFirstCA
 } from "../../redux/usersReducer";
+import React from 'react';
+import axios from 'axios';
+import Users from "./users";
+
+class UsersAPIcomponent extends React.Component {
+
+	loadUsers = () => {
+		this.props.showLoadingCA();
+		axios.get(
+			`https://social-network.samuraijs.com/api/1.0/users?
+			count=${this.props.pageSize}&page=${this.props.curentPage}`
+		).then((response) => {
+			this.props.setTotalCountUsersCA(response.data.totalCount);
+			this.props.getUsersCA(response.data.items);
+			this.props.showDateCA();
+		});
+
+	};
+	switchPage = (numPage) => {
+		this.props.switchNewPageCA(numPage);
+		this.props.showLoadingCA();
+		axios.get(
+			`https://social-network.samuraijs.com/api/1.0/users?
+			count=${this.props.pageSize}&page=${numPage}`
+		).then((response) => {
+			this.props.getUsersCA(response.data.items);
+			this.props.showDateCA();
+		});
+	};
+
+	changePage = (value) => {
+		this.props.changePageSizeCA(value);
+		this.props.switchNewPageCA(1);
+		this.props.setLinkFirstCA();
+		this.props.showLoadingCA();
+		axios.get(
+			`https://social-network.samuraijs.com/api/1.0/users?
+			count=${value}&page=1`
+		).then((response) => {
+			this.props.getUsersCA(response.data.items);
+			this.props.showDateCA();
+		});
+	};
+
+	componentDidMount() {
+		this.loadUsers();
+	}
+
+	up = () => {
+		if (this.props.curentLinkPart < ((this.props.totalCountUsers / this.props.pageSize) / 10) - 1) {
+			this.props.linkUpCA();
+		}
+	};
+	down = () => {
+		if (this.props.curentLinkPart > 1) {
+			this.props.linkDownCA();
+		}
+	};
+
+	render() {
+
+		return (
+			<Users
+				users={this.props.users}
+				totalCountUsers={this.props.totalCountUsers}
+				pageSize={this.props.pageSize}
+				curentLinkPart={this.props.curentLinkPart}
+				curentPage={this.props.curentPage}
+				unfollow={this.props.unfollowCA}
+				follow={this.props.followCA}
+				isLoading={this.props.isLoading}
+				switchPage={this.switchPage}
+				down={this.down}
+				up={this.up}
+				changePage={this.changePage}
+			/>
+		)
+	}
+
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -18,39 +97,23 @@ const mapStateToProps = (state) => {
 		totalCountUsers: state.usersPage.totalCountUsers,
 		curentPage: state.usersPage.curentPage,
 		pageSize: state.usersPage.pageSize,
-		loading: state.usersPage.loading,
+		isLoading: state.usersPage.isLoading,
 		curentLinkPart: state.usersPage.curentLinkPart,
 	}
 };
-const mapDispatchToProps = (dispatch) => {
-	return {
-		follow: (idUser) => {
-			dispatch(followCA(idUser))
-		},
-		unfollow: (idUser) => {
-			dispatch(unfollowCA(idUser))
-		},
-		getUsers: (users) => {
-			dispatch(getUsersCA(users))
-		},
-		switchNewPage: (numPage) => {
-			dispatch(switchNewPageCA(numPage))
-		},
-		changePageSize: (newSize) => {
-			dispatch(changePageSizeCA(+newSize))
-		},
-		setTotalCountUsers: (totalCount) => {
-			dispatch(setTotalCountUsersCA(totalCount))
-		},
-		showLoading: ()=>{dispatch(showLoadingCA())},
-		showDate: ()=>{dispatch(showDateCA())},
-		linkUp: ()=>{dispatch(linkUpCA())},
-		linkDown: ()=>{dispatch(linkDownCA())},
-		setLinkFirst: ()=>{dispatch(setLinkFirstCA())}
 
-	}
-
-};
-
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+const UsersContainer = connect(mapStateToProps, {
+	followCA,
+	unfollowCA,
+	getUsersCA,
+	switchNewPageCA,
+	changePageSizeCA,
+	setTotalCountUsersCA,
+	showLoadingCA,
+	showDateCA,
+	linkUpCA,
+	linkDownCA,
+	setLinkFirstCA,
+})(UsersAPIcomponent);
 export default UsersContainer;
+

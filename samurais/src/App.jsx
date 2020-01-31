@@ -14,7 +14,7 @@ function App(props) {
 			< Header/>
 			< Navbar/>
 			< div className="app-wraper-content">
-				<Route exact path="/profile" component={Profile}/>
+				<Route path="/profile" component={Profile}/>
 				<Route path="/dialogs" component={DialogsContainer}/>
 				<Route path="/users" component={UsersContainer}/>
 			</div>

@@ -34,6 +34,9 @@
     width: 100%;
 }
 
+.status{
+    width: 90%;
+}
 
 .links {
     align-self: center;
@@ -55,16 +58,16 @@
     align-self: center;
 }
 
-.arrows{
+.arrows {
     cursor: pointer;
     font-weight: bold;
 }
 
-.countUsers{
+.countUsers {
     align-self: center;
     margin: 10px;
 }
 
-.selectCountUsers{
+.selectCountUsers {
     margin: 5px;
 }

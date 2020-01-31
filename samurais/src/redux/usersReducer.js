@@ -25,7 +25,7 @@ let initialState = {
 	totalCountUsers: 0,
 	curentPage: 1,
 	pageSize: 50,
-	loading: true,
+	isLoading: true,
 	curentLinkPart: 1,
 
 };
@@ -62,9 +62,9 @@ const userReducer = (state = initialState, action) => {
 		case SET_TOTAL_COUNT_USERS:
 			return {...state, totalCountUsers: action.totalCount};
 		case SHOW_LOADING:
-			return {...state, loading: true};
+			return {...state, isLoading: true};
 		case SHOW_DATE:
-			return {...state, loading: false};
+			return {...state, isLoading: false};
 		case LINK_UP:
 			return {...state, curentLinkPart: state.curentLinkPart+1};
 		case LINK_DOWN:
