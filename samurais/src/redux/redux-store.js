@@ -4,13 +4,15 @@ import navbarReducer from './navbarReducer'
 import profileReducer from './profileReducer'
 import dialogsReducer from './dialogsReducer'
 import usersReducer from "./usersReducer";
+import authReducer from "./authReducer";
 
 let reducers = combineReducers({
 	header: headerReducer,
 	navbar: navbarReducer,
 	profilePage: profileReducer,
 	dialogsPage: dialogsReducer,
-	usersPage: usersReducer
+	usersPage: usersReducer,
+	auth: authReducer
 });
 const store = createStore(reducers);
 

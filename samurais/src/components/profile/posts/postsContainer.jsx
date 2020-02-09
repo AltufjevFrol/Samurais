@@ -15,20 +15,10 @@ const mapStateToProps = (state)=> {
 	}
 };
 
-const mapDispatchToProps = (dispatch)=> {
-	return {
-		addPost() {
-			dispatch(addPostCreateAction());
-		},
-		addNewSymbolPost(newText) {
-			dispatch(addNewSymbolPostCreateAction(newText));
-		},
-		addLike(idPost) {
-			dispatch(addLikePostCreateAction(idPost))
-		}
-	}
 
-};
-
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
+const PostsContainer = connect(mapStateToProps, {
+	addPostCreateAction,
+	addNewSymbolPostCreateAction,
+	addLikePostCreateAction,
+})(Posts);
 export default PostsContainer;

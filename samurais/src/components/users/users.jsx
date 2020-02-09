@@ -55,8 +55,8 @@ const Users = (props) => {
 				<div className={styles.descriptionBlock}>
 					<div className={styles.fullName}>{user.name}</div>
 					<div className={styles.status}>{user.status ? user.status : 'no status'}</div>
-					<div className={styles.locationCity}>{'user.location.city'}</div>
-					<div className={styles.locationCountry}>{'user.location.country'}</div>
+					{/*<div className={styles.locationCity}>{'user.location.city'}</div>
+					<div className={styles.locationCountry}>{'user.location.country'}</div>*/}
 				</div>
 			</div>
 		)

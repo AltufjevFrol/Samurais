@@ -19,7 +19,7 @@ export const showLoadingCA = ()=>({type: SHOW_LOADING});
 export const showDateCA = ()=>({type: SHOW_DATE});
 export const linkUpCA = ()=>({type: LINK_UP});
 export const linkDownCA = ()=>({type: LINK_DOWN});
-export const setLinkFirstCA = ()=>({type: SET_LINK_FIRST})
+export const setLinkFirstCA = ()=>({type: SET_LINK_FIRST});
 let initialState = {
 	users: [],
 	totalCountUsers: 0,

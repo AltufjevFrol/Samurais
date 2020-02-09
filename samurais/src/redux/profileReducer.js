@@ -1,14 +1,25 @@
 const ADD_POST = 'ADD-POST';
 const ADD_LIKE_POST = 'ADD-LIKE-POST';
 const ADD_NEW_SYMBOL_POST = 'ADD-NEW-SYMBOL-TEXT';
+const GET_USER_INFO = 'GET-USER-INFO';
+const FAIL_GET_USER_INFO = 'FAIL-GET-USER-INFO';
+const SET_LOADING = 'SET_LOADING';
 
 export const addPostCreateAction = () => ({type: ADD_POST});
 export const addLikePostCreateAction = (idPost) => ({type: ADD_LIKE_POST, idPost: idPost});
 export const addNewSymbolPostCreateAction = (newText) => ({type: ADD_NEW_SYMBOL_POST, newText: newText});
+export const getUserInfoCA = (userInfo) => ({type: GET_USER_INFO, userInfo});
+export const failGetUserInfoCA = (e)=>({type:FAIL_GET_USER_INFO, e});
+export const setLoadingCA = (bool)=>({type:SET_LOADING, value:bool});
+
 
 let initialState = {
+	userInfo: null,
 	postsData: [],
 	newPostText: '',
+	error: null,
+	isLoading: true,
+
 };
 
 function profileReducer(state = initialState, action) {
@@ -28,15 +39,21 @@ function profileReducer(state = initialState, action) {
 	};
 
 	const addLikePost = (idPost) => {
-
-		let copyState={
+		let copyState = {
 			...state,
 			postsData: [...state.postsData]
 		};
 
-		let post = copyState.postsData.find((post) => post.id === idPost);
+		let post;
+		copyState.postsData.forEach((p, i) => {
+			if (p.id === idPost) {
+				post = {p, i};
+			}
+		});
 		if (post) {
-			++post.like;
+			let copyPost = {...post.p};
+			++copyPost.like;
+			copyState.postsData.splice(post.i, 1, copyPost);
 		}
 		return copyState;
 	};
@@ -53,6 +70,21 @@ function profileReducer(state = initialState, action) {
 			return addLikePost(action.idPost);
 		case ADD_NEW_SYMBOL_POST:
 			return addNewSymbolPost(action.newText);
+		case GET_USER_INFO:
+			return {
+				...state,
+				userInfo: action.userInfo
+			};
+		case FAIL_GET_USER_INFO:
+			return {
+				...state,
+				error: action.e
+			};
+		case SET_LOADING:
+			return {
+				...state,
+				isLoading: action.value,
+			};
 		default:
 			return state
 	}

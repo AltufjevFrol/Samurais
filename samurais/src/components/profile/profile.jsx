@@ -3,12 +3,11 @@ import styles from './profile.module.css'
 import PostsContainer from './posts/postsContainer.jsx'
 import ProfileInfo from "./profile_info/profileInfo.jsx";
 
-function Profile() {
-
+function Profile(props) {
 	return (
 		<>
-			<ProfileInfo/>
-			<PostsContainer  />
+			<ProfileInfo {...props}/>
+			<PostsContainer/>
 		</>
 	)
 
