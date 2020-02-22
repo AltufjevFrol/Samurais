@@ -1,75 +1,24 @@
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 import {
-	changePageSizeCA,
-	followCA,
-	getUsersCA,
-	setTotalCountUsersCA, showDateCA, showLoadingCA,
-	switchNewPageCA,
-	unfollowCA,
-	linkUpCA,
-	linkDownCA,
-	setLinkFirstCA
+	linkUpCA, linkDownCA,
+	loadUsers, switchPage, changePage, follow, unfollow,
 } from "../../redux/usersReducer";
 import React from 'react';
-import axios from 'axios';
 import Users from "./users";
+import Login from "../login/login";
 
 class UsersAPIcomponent extends React.Component {
 
-	loadUsers = () => {
-		this.props.showLoadingCA();
-		axios.get(
-			`https://social-network.samuraijs.com/api/1.0/users?
-			count=${this.props.pageSize}&page=${this.props.curentPage}`
-		).then((response) => {
-			this.props.setTotalCountUsersCA(response.data.totalCount);
-			this.props.getUsersCA(response.data.items);
-			this.props.showDateCA();
-		});
-
-	};
-	switchPage = (numPage) => {
-		this.props.switchNewPageCA(numPage);
-		this.props.showLoadingCA();
-		axios.get(
-			`https://social-network.samuraijs.com/api/1.0/users?
-			count=${this.props.pageSize}&page=${numPage}`
-		).then((response) => {
-			this.props.getUsersCA(response.data.items);
-			this.props.showDateCA();
-		});
-	};
-
-	changePage = (value) => {
-		this.props.changePageSizeCA(value);
-		this.props.switchNewPageCA(1);
-		this.props.setLinkFirstCA();
-		this.props.showLoadingCA();
-		axios.get(
-			`https://social-network.samuraijs.com/api/1.0/users?
-			count=${value}&page=1`
-		).then((response) => {
-			this.props.getUsersCA(response.data.items);
-			this.props.showDateCA();
-		});
-	};
-
 	componentDidMount() {
-		this.loadUsers();
+		this.props.loadUsers(this.props.pageSize, this.props.curentPage);
 	}
 
-	up = () => {
-		if (this.props.curentLinkPart < ((this.props.totalCountUsers / this.props.pageSize) / 10) - 1) {
-			this.props.linkUpCA();
-		}
-	};
-	down = () => {
-		if (this.props.curentLinkPart > 1) {
-			this.props.linkDownCA();
-		}
-	};
-
 	render() {
+
+		if(!this.props.isAuth){
+			return <Redirect to="/login"/>;
+		}
 
 		return (
 			<Users
@@ -78,18 +27,19 @@ class UsersAPIcomponent extends React.Component {
 				pageSize={this.props.pageSize}
 				curentLinkPart={this.props.curentLinkPart}
 				curentPage={this.props.curentPage}
-				unfollow={this.props.unfollowCA}
-				follow={this.props.followCA}
 				isLoading={this.props.isLoading}
-				switchPage={this.switchPage}
-				down={this.down}
-				up={this.up}
-				changePage={this.changePage}
+				switchPage={this.props.switchPage}
+				changePage={this.props.changePage}
+				followingInProgres={this.props.followingInProgres}
+				unfollow={this.props.unfollow}
+				follow={this.props.follow}
+				linkUpCA={this.props.linkUpCA}
+				linkDownCA={this.props.linkDownCA}
 			/>
 		)
 	}
 
-};
+}
 
 const mapStateToProps = (state) => {
 	return {
@@ -99,21 +49,15 @@ const mapStateToProps = (state) => {
 		pageSize: state.usersPage.pageSize,
 		isLoading: state.usersPage.isLoading,
 		curentLinkPart: state.usersPage.curentLinkPart,
+		followingInProgres: state.usersPage.followingInProgres,
+		isAuth: state.auth.isAuth
 	}
 };
 
 const UsersContainer = connect(mapStateToProps, {
-	followCA,
-	unfollowCA,
-	getUsersCA,
-	switchNewPageCA,
-	changePageSizeCA,
-	setTotalCountUsersCA,
-	showLoadingCA,
-	showDateCA,
 	linkUpCA,
 	linkDownCA,
-	setLinkFirstCA,
+	loadUsers, switchPage, changePage, follow, unfollow,
 })(UsersAPIcomponent);
 export default UsersContainer;
 

@@ -2,10 +2,21 @@ import React from 'react';
 import styles from "./users.module.css";
 import userPic from "../../assets/img/pngguru.com.png";
 import {NavLink} from 'react-router-dom';
-const Users = (props) => {
 
-	let
-		pages = [];
+
+const Users = (props) => {
+	const up = () => {
+		if (props.curentLinkPart < ((props.totalCountUsers / props.pageSize) / 10) - 1) {
+			props.linkUpCA();
+		}
+	};
+	const down = () => {
+		if (props.curentLinkPart > 1) {
+			props.linkDownCA();
+		}
+	};
+
+	let pages = [];
 
 	for (let i = 1; i <= Math.ceil(props.totalCountUsers / props.pageSize); i++) {
 		pages.push({id: i, numPage: i})
@@ -21,7 +32,7 @@ const Users = (props) => {
 			<span
 				className={`${styles.link} ${p.id === props.curentPage ? styles.curentMarker : ''}`}
 				key={p.id}
-				onClick={() => props.switchPage(p.id)}
+				onClick={() => props.switchPage(p.id, props.pageSize)}
 				hidden={!visible}
 			>
 					{p.numPage}
@@ -30,11 +41,12 @@ const Users = (props) => {
 	});
 
 	let usersList = props.users.map((user) => {
+
 		return (
 			<div key={user.id} className={styles.userWrap}>
 				<div className={styles.avatarBlock}>
 					<div className={styles.avatar}>
-						<NavLink to={'/profile/'+user.id}>
+						<NavLink to={'/profile/' + user.id}>
 							<img src={user.photos.small ? user.photos.small : userPic}
 									 alt="avatar"
 							/>
@@ -43,20 +55,24 @@ const Users = (props) => {
 					</div>
 					<div className={styles.button}>
 						{user.followed ?
-							<button onClick={() => {
-								props.unfollow(user.id)
-							}}>Unfollow</button> :
-							<button onClick={() => {
-								props.follow(user.id)
-							}}>Follow</button>
+							<button
+								onClick={() => props.unfollow(user.id)}
+								disabled={props.followingInProgres.some(id => id === user.id)}
+							>
+								Unfollow
+							</button> :
+							<button
+								onClick={() => props.follow(user.id)}
+								disabled={props.followingInProgres.some(id => id === user.id)}
+							>
+								Follow
+							</button>
 						}
 					</div>
 				</div>
 				<div className={styles.descriptionBlock}>
 					<div className={styles.fullName}>{user.name}</div>
 					<div className={styles.status}>{user.status ? user.status : 'no status'}</div>
-					{/*<div className={styles.locationCity}>{'user.location.city'}</div>
-					<div className={styles.locationCountry}>{'user.location.country'}</div>*/}
 				</div>
 			</div>
 		)
@@ -67,11 +83,11 @@ const Users = (props) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.links}>
-					<span className={styles.arrows} onClick={props.down}>
+					<span className={styles.arrows} onClick={down}>
 						{'<<'}
 					</span>
 				{pagesLinks}
-				<span className={styles.arrows} onClick={props.up}>
+				<span className={styles.arrows} onClick={up}>
 						{'>>'}
 					</span>
 			</div>

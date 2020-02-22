@@ -1,6 +1,18 @@
+import API from '../apiHttpRequest/api'
+
 const SET_USER_DATA = 'SET-USER-DATA';
 
 export const setUserDataCA = (data) => ({type: SET_USER_DATA, data});
+export const authMe = () => {
+	return (dispatch) => {
+		API.getAuthMe().then((resp) => {
+			if (resp.resultCode === 0) {
+				dispatch(setUserDataCA(resp.data));
+			}
+		})
+	}
+
+};
 
 const initialState = {
 	id: null,
