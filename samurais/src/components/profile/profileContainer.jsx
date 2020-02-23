@@ -2,8 +2,9 @@ import React from 'react';
 import Profile from './profile';
 import {connect} from 'react-redux';
 import API from "../../apiHttpRequest/api.js";
-import {failGetUserInfoCA, getUserInfoCA, setLoadingCA} from "../../redux/profileReducer";
+import {setUserInfo} from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
+import withRedirectToLogin from "../hoc/withAuthRedirect";
 
 class ProfileContainer extends React.Component {
 
@@ -13,19 +14,7 @@ class ProfileContainer extends React.Component {
 		if (this.props.userInfo && id === this.props.userInfo.userId) {
 			return;
 		}
-
-		this.props.setLoadingCA(true);
-
-		API.getUser(id).then(resp => {
-			this.props.getUserInfoCA(resp);
-			this.props.failGetUserInfoCA(null);
-			this.props.setLoadingCA(false);
-		}).catch(e=>{
-			this.props.failGetUserInfoCA(e);
-			this.props.setLoadingCA(false);
-		})
-
-
+		this.props.setUserInfo(id);
 
 	}
 
@@ -57,15 +46,12 @@ const mapStateToProps = (state) => {
 		userInfo: state.profilePage.userInfo,
 		error: state.profilePage.error,
 		isLoading: state.profilePage.isLoading,
-		auth: state.auth,
 	}
 };
 
-let ProfileURLContainer = withRouter(ProfileContainer);
+let ProfileURLContainer = withRouter(withRedirectToLogin(ProfileContainer));
 
 export default connect(mapStateToProps, {
-	/*Здесь будут action creaters для userInfo*/
-	getUserInfoCA,
-	failGetUserInfoCA,
-	setLoadingCA,
+	/*Здесь будут actionСreaters для userInfo*/
+	setUserInfo
 })(ProfileURLContainer);
