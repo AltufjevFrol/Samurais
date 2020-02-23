@@ -1,12 +1,8 @@
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
-import {
-	linkUpCA, linkDownCA,
-	loadUsers, switchPage, changePage, follow, unfollow,
-} from "../../redux/usersReducer";
+import {linkUpCA, linkDownCA, loadUsers, switchPage, changePage, follow, unfollow} from "../../redux/usersReducer";
 import React from 'react';
 import Users from "./users";
-import Login from "../login/login";
+import withRedirectToLogin from "../hoc/withAuthRedirect";
 
 class UsersAPIcomponent extends React.Component {
 
@@ -15,10 +11,6 @@ class UsersAPIcomponent extends React.Component {
 	}
 
 	render() {
-
-		if(!this.props.isAuth){
-			return <Redirect to="/login"/>;
-		}
 
 		return (
 			<Users
@@ -58,6 +50,11 @@ const UsersContainer = connect(mapStateToProps, {
 	linkUpCA,
 	linkDownCA,
 	loadUsers, switchPage, changePage, follow, unfollow,
-})(UsersAPIcomponent);
+})(withRedirectToLogin(UsersAPIcomponent));
+
 export default UsersContainer;
+/*
+просто взяли контейнерную компоненту UserContainer и с помощью HOCа withRedirecTotLogin получили другую контейнерную
+компоненту которая в зависимости от state.auth.isAuth рендерит UserContainer либо Redirect
+*/
 
