@@ -1,3 +1,5 @@
+import API from "../apiHttpRequest/api";
+
 const ADD_POST = 'ADD-POST';
 const ADD_LIKE_POST = 'ADD-LIKE-POST';
 const ADD_NEW_SYMBOL_POST = 'ADD-NEW-SYMBOL-TEXT';
@@ -9,9 +11,21 @@ export const addPostCreateAction = () => ({type: ADD_POST});
 export const addLikePostCreateAction = (idPost) => ({type: ADD_LIKE_POST, idPost: idPost});
 export const addNewSymbolPostCreateAction = (newText) => ({type: ADD_NEW_SYMBOL_POST, newText: newText});
 export const getUserInfoCA = (userInfo) => ({type: GET_USER_INFO, userInfo});
-export const failGetUserInfoCA = (e)=>({type:FAIL_GET_USER_INFO, e});
-export const setLoadingCA = (bool)=>({type:SET_LOADING, value:bool});
-
+export const failGetUserInfoCA = (e) => ({type: FAIL_GET_USER_INFO, e});
+export const setLoadingCA = (bool) => ({type: SET_LOADING, value: bool});
+export const setUserInfo = (id) => {
+	return (despatch) => {
+		despatch(setLoadingCA(true));
+		API.getUser(id).then(resp => {
+			despatch(getUserInfoCA(resp));
+			despatch(failGetUserInfoCA(null));
+			despatch(setLoadingCA(false));
+		}).catch(e => {
+			despatch(failGetUserInfoCA(e));
+			despatch(setLoadingCA(false));
+		});
+	};
+};
 
 let initialState = {
 	userInfo: null,
