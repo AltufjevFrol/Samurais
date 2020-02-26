@@ -11,7 +11,7 @@ class ProfileContainer extends React.Component {
 
 	componentDidMount() {
 		let id;
-		id = +this.props.match.params.userId;
+		id = this.props.match.params.userId ? +this.props.match.params.userId: this.props.myId;
 		if (this.props.userInfo && id === this.props.userInfo.userId) {
 			return;
 		}
@@ -47,6 +47,7 @@ const mapStateToProps = (state) => {
 		userInfo: state.profilePage.userInfo,
 		error: state.profilePage.error,
 		isLoading: state.profilePage.isLoading,
+		myId: state.auth.id
 	}
 };
 
@@ -62,4 +63,4 @@ export default connect(mapStateToProps, {
 export default compose(connect(mapStateToProps, {
     /*Здесь будут actionСreaters для userInfo*/
     setUserInfo
-}),withRouter,withRedirectToLogin)(ProfileContainer)
+}),withRouter,/*withRedirectToLogin*/)(ProfileContainer)
