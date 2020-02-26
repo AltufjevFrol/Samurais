@@ -5,6 +5,7 @@ import API from "../../apiHttpRequest/api.js";
 import {setUserInfo} from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import withRedirectToLogin from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
 
@@ -49,9 +50,16 @@ const mapStateToProps = (state) => {
 	}
 };
 
+/*
 let ProfileURLContainer = withRouter(withRedirectToLogin(ProfileContainer));
 
 export default connect(mapStateToProps, {
-	/*Здесь будут actionСreaters для userInfo*/
+	/!*Здесь будут actionСreaters для userInfo*!/
 	setUserInfo
 })(ProfileURLContainer);
+*/
+
+export default compose(connect(mapStateToProps, {
+    /*Здесь будут actionСreaters для userInfo*/
+    setUserInfo
+}),withRouter,withRedirectToLogin)(ProfileContainer)

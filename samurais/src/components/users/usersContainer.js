@@ -3,8 +3,9 @@ import {linkUpCA, linkDownCA, loadUsers, switchPage, changePage, follow, unfollo
 import React from 'react';
 import Users from "./users";
 import withRedirectToLogin from "../hoc/withAuthRedirect";
+import {compose} from "redux";
 
-class UsersAPIcomponent extends React.Component {
+class UsersContainer extends React.Component {
 
 	componentDidMount() {
 		this.props.loadUsers(this.props.pageSize, this.props.curentPage);
@@ -46,13 +47,12 @@ const mapStateToProps = (state) => {
 	}
 };
 
-const UsersContainer = connect(mapStateToProps, {
-	linkUpCA,
-	linkDownCA,
-	loadUsers, switchPage, changePage, follow, unfollow,
-})(withRedirectToLogin(UsersAPIcomponent));
+export default compose(connect(mapStateToProps, {
+    linkUpCA,
+    linkDownCA,
+    loadUsers, switchPage, changePage, follow, unfollow,
+}), withRedirectToLogin)(UsersContainer)
 
-export default UsersContainer;
 /*
 просто взяли контейнерную компоненту UserContainer и с помощью HOCа withRedirecTotLogin получили другую контейнерную
 компоненту которая в зависимости от state.auth.isAuth рендерит UserContainer либо Redirect
