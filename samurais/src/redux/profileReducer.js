@@ -26,6 +26,15 @@ export const setUserInfo = (id) => {
 		});
 	};
 };
+export const getStatus = (id)=>{
+	return (despatch)=>{
+        API.getStatus(id).then((status)=>{
+            if(status){
+                this.setState({status:status})
+            }
+        })
+	}
+};
 
 let initialState = {
 	userInfo: null,
