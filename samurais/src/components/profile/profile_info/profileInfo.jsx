@@ -41,7 +41,11 @@ const ProfileInfo = (props) => {
             </div>
             <div className={styles.description}>
                 <div className={styles.fullName}><h1>{profile.fullName}</h1></div>
-                <Status myId={props.myId} userId ={props.userInfo.userId}/>
+
+                <div>Status:
+                    <Status myId={props.myId} userId ={props.userInfo.userId} status={props.userStatus} setStatus={props.setStatus} />
+                </div>
+
                 <div className={styles.about}>
                     <span className={styles.bold}>О бо мне:</span>
                     <br/>
