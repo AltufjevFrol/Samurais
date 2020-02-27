@@ -2,7 +2,7 @@ import React from 'react';
 import Profile from './profile';
 import {connect} from 'react-redux';
 import API from "../../apiHttpRequest/api.js";
-import {setUserInfo} from "../../redux/profileReducer";
+import {setUserInfo, getStatus, setStatus} from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import withRedirectToLogin from "../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -16,6 +16,7 @@ class ProfileContainer extends React.Component {
 			return;
 		}
 		this.props.setUserInfo(id);
+		/*this.props.getStatus(id);*/
 
 	}
 
@@ -47,7 +48,8 @@ const mapStateToProps = (state) => {
 		userInfo: state.profilePage.userInfo,
 		error: state.profilePage.error,
 		isLoading: state.profilePage.isLoading,
-		myId: state.auth.id
+		myId: state.auth.id,
+		userStatus: state.profilePage.userStatus
 	}
 };
 
@@ -62,5 +64,7 @@ export default connect(mapStateToProps, {
 
 export default compose(connect(mapStateToProps, {
     /*Здесь будут actionСreaters для userInfo*/
-    setUserInfo
+    setUserInfo,
+	getStatus,
+    setStatus
 }),withRouter,/*withRedirectToLogin*/)(ProfileContainer)
