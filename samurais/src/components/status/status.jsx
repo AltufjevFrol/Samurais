@@ -3,17 +3,8 @@ import API from "../../apiHttpRequest/api";
 
 class Status extends React.Component {
     state = {
-        status: 'No status...',
+        status: this.props.status ? this.props.status : 'no status...',
         isEdit: false
-    }
-
-    componentDidMount() {
-        let id = this.props.userId === this.props.myId ? this.props.myId:this.props.userId;
-        API.getStatus(id).then((status)=>{
-            if(status){
-                this.setState({status:status})
-            }
-        })
     }
 
     setEdit = () => {
@@ -21,9 +12,9 @@ class Status extends React.Component {
             this.setState({isEdit: true});
         }
     }
-    setShow = () => {
+    setShow = (e) => {
         this.setState({isEdit: false})
-        API.setStatus(this.state.status).then((resp)=>console.log(resp));
+        this.props.setStatus(e.target.value)
     }
 
     inputStatus = (e) => {
@@ -32,10 +23,11 @@ class Status extends React.Component {
 
     render() {
 
-        let status = this.state.isEdit ? <input autoFocus={true} onChange={this.inputStatus}/> :
-            <div>{this.state.status}</div>;
+        let status = this.state.isEdit ?
+            <input autoFocus={true} onChange={this.inputStatus} onBlur={this.setShow}/> :
+            <div onDoubleClick={this.setEdit}>{this.state.status}</div>;
         return (
-            <div onDoubleClick={this.setEdit} onBlur={this.setShow}>
+            <div>
                 {status}
             </div>);
     }
