@@ -16,11 +16,12 @@ function Header(props) {
 			</svg>
 		</div>);
 const refLogin = <NavLink to="/login">Login</NavLink>;
+const refName = <NavLink to="/login">{props.login}</NavLink>;
 	return (
 		<header className={styles.header}>
 			{logo}
 			<div className={styles.loginBlok}>
-				{props.isAuth ? props.login : refLogin}
+				{props.isAuth ? refName : refLogin}
 			</div>
 		</header>
 	)
