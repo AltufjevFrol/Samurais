@@ -16,7 +16,7 @@ export const getUserInfoCA = (userInfo) => ({type: GET_USER_INFO, userInfo});
 export const failGetUserInfoCA = (e) => ({type: FAIL_GET_USER_INFO, e});
 export const setLoadingCA = (bool) => ({type: SET_LOADING, value: bool});
 export const setUserStatusCA = (status) => ({type: SET_USER_STATUS, value: status});
-export const getUserStatusCA = () => ({type: GET_USER_STATUS});
+//export const getUserStatusCA = () => ({type: GET_USER_STATUS});
 
 export const setUserInfo = (id) => {
     return (despatch) => {
@@ -39,7 +39,7 @@ export const setUserInfo = (id) => {
     };
 };
 
-export const getStatus = (id) => {
+/*export const getStatus = (id) => {
     return (despatch) => {
         despatch(setLoadingCA(true));
         API.getStatus(id).then((status) => {
@@ -49,7 +49,7 @@ export const getStatus = (id) => {
             despatch(setLoadingCA(false));
         })
     };
-};
+};*/
 export const setStatus = (status) => {
     return (despatch) => {
         despatch(setLoadingCA(true));
