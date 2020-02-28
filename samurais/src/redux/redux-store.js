@@ -7,13 +7,16 @@ import dialogsReducer from './dialogsReducer';
 import usersReducer from "./usersReducer";
 import authReducer from "./authReducer";
 
+import {reducer as formReducer} from 'redux-form';
+
 let reducers = combineReducers({
 	header: headerReducer,
 	navbar: navbarReducer,
 	profilePage: profileReducer,
 	dialogsPage: dialogsReducer,
 	usersPage: usersReducer,
-	auth: authReducer
+	auth: authReducer,
+	form: formReducer
 });
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
