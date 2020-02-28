@@ -1,31 +1,44 @@
 import React from 'react';
-import API from "../../apiHttpRequest/api";
+
 
 class Status extends React.Component {
-    state = {
-        status: this.props.status ? this.props.status : 'no status...',
-        isEdit: false
+    constructor(props) {
+        super();
+        this.state = {
+            status: props.status ? props.status : 'no status...',
+            isEdit: false
+        }
+        this.setEdit = this.setEdit.bind(this);
+        this.setShow = this.setShow.bind(this);
+        this.inputStatus = this.inputStatus.bind(this);
     }
 
-    setEdit = () => {
+    setEdit(){
         if (this.props.userId === this.props.myId) {
             this.setState({isEdit: true});
         }
     }
-    setShow = (e) => {
-        this.setState({isEdit: false})
-        this.props.setStatus(e.target.value)
+    setShow(e){
+        this.setState({isEdit: false});
+        this.props.setStatus(e.target.value);
     }
 
-    inputStatus = (e) => {
+    inputStatus(e){
         this.setState({status: e.target.value})
+    }
+
+    keyDown = (e)=>{
+        if(e.key === 'Enter'){
+            e.preventDefault();
+            this.setShow(e);
+        }
     }
 
     render() {
 
         let status = this.state.isEdit ?
-            <input autoFocus={true} onChange={this.inputStatus} onBlur={this.setShow}/> :
-            <div onDoubleClick={this.setEdit}>{this.state.status}</div>;
+            <input autoFocus={true} onChange={this.inputStatus} onKeyDown={this.keyDown} onBlur={this.setShow} value={this.state.status}/> :
+            <div onDoubleClick={this.setEdit}>{this.props.status}</div>;
         return (
             <div>
                 {status}
