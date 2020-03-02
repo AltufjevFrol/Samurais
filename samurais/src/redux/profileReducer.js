@@ -6,7 +6,7 @@ const ADD_NEW_SYMBOL_POST = 'ADD-NEW-SYMBOL-TEXT';
 const GET_USER_INFO = 'GET-USER-INFO';
 const FAIL_GET_USER_INFO = 'FAIL-GET-USER-INFO';
 const SET_LOADING = 'SET_LOADING';
-const GET_USER_STATUS = 'GET-USER-STATUS';
+/*const GET_USER_STATUS = 'GET-USER-STATUS';*/
 const SET_USER_STATUS = 'SET-USER-STATUS';
 
 export const addPostCreateAction = () => ({type: ADD_POST});
