@@ -10,7 +10,10 @@ const instance = axios.create({
 
 const API = {
     getAuthMe() {
-        return instance.get('https://social-network.samuraijs.com/api/1.0/auth/me').then(responce => responce.data);
+        return instance.get('auth/me').then(responce => responce.data);
+    },
+    setAuthMe (logData){
+        return instance.post('auth/login', logData).then(resp=>resp.data);
     },
     getUser(id) {
         return instance.get(`profile/${id}`).then((responce) => responce.data);
@@ -30,6 +33,7 @@ const API = {
     setStatus(status) {
         return instance.put('profile/status/', {status}).then((resp)=>resp.data)
     }
+
 };
 
 
