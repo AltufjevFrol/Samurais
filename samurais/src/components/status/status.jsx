@@ -4,15 +4,46 @@ import {Field, reduxForm} from 'redux-form';
 let FormStatus = (props) => {
     console.log(props);
     return (
-        <form onSubmit={props.hendleSubmit}>
+        <form onBlur={props.handleSubmit} onSubmit={props.handleSubmit}>
             <Field component={'input'} placeholder={'new status'} name={'status'} autoFocus={true}/>
         </form>
     );
 };
 
-FormStatus = reduxForm({form:'status'})(FormStatus)
+FormStatus = reduxForm({form: 'status'})(FormStatus);
 
 class Status extends React.Component {
+
+    state = {isEdit: false};
+    setEdit = () => {
+        if (this.props.userId === this.props.myId) {
+            this.setState({isEdit: true});
+        }
+    };
+    setShow = () => {
+        this.setState({isEdit: false});
+    };
+
+    updeteStatus = (formData) => {
+        this.props.setStatus(formData.status);
+    };
+
+    render() {
+        let status = this.state.isEdit ?
+            <FormStatus onSubmit={this.updeteStatus}/> :
+            <div>{this.props.status}</div>;
+        return (
+            <div onDoubleClick={this.setEdit} onBlur={this.setShow}>
+                {status}
+            </div>);
+    }
+
+};
+
+export default Status;
+
+
+class StatusOLD extends React.Component {
     constructor(props) {
         super();
         this.state = {
@@ -58,7 +89,6 @@ class Status extends React.Component {
     }
 }
 
-export default Status;
 
 /*
 *
