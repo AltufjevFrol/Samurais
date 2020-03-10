@@ -28,6 +28,8 @@ const withRedirectToLogin = (Component) => {
 			return (<Component {...props}/>);
 		}
 	)
+
+	
 	};
 
 export default withRedirectToLogin;
