@@ -15,8 +15,12 @@ function Header(props) {
 			c3,0,4.4-1.5,3.6-4.4c-0.9-2.9-4.3-7.1-8.7-12.1c-2.4-2.8-6-5.9-7.1-7.4c-1.5-2-1.1-2.8,0-4.6C173,143.5,185.6,125.7,186.9,119.7"/>
 			</svg>
 		</div>);
-const refLogin = <NavLink to="/login">Login</NavLink>;
-const refName = <NavLink to="/login">{props.login}</NavLink>;
+	const refLogin = <NavLink to="/login">Login</NavLink>;
+	const refName =
+		<>
+			<NavLink to="/profile">{props.login}</NavLink>
+			<button onClick={props.logoutMe}>Logout</button>
+		</>;
 	return (
 		<header className={styles.header}>
 			{logo}
