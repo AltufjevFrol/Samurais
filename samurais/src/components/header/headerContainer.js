@@ -6,10 +6,6 @@ import Header from "./header";
 
 class HeaderContainer extends React.Component {
 
-	componentDidMount() {
-		this.props.authMe();
-	}
-
 	render() {
 		return <Header {...this.props}/>
 	}
@@ -22,4 +18,4 @@ const mapStateToProps = (state) => {
 	}
 };
 
-export default connect(mapStateToProps, {authMe,logoutMe})(HeaderContainer);
+export default connect(mapStateToProps, {authMe, logoutMe})(HeaderContainer);
