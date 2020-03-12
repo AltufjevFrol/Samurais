@@ -66,4 +66,4 @@ export default compose(connect(mapStateToProps, {
     /*Здесь будут actionСreaters для userInfo*/
     setUserInfo,
     setStatus
-}), withRouter,/*withRedirectToLogin*/)(ProfileContainer)
+}), withRouter,withRedirectToLogin)(ProfileContainer)
