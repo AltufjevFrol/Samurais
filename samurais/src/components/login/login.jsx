@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {loginMe} from '../../redux/authReducer'
 import {requiredValidator, maxLengthValidatorCreater, patternValidatorCreater} from "../../utils/validators/validators";
 import {Input, INPUT, InputControl} from "../common/inputsControls";
+import {Redirect} from "react-router-dom";
 
 let maxLengthValidator = maxLengthValidatorCreater(20);
 const regExpEmail = /\S+@\S+\.\S+/;
@@ -65,6 +66,7 @@ const Login = (props) => {
 		props.loginMe(formData);
 	};
 	return (
+		props.auth.isAuth?<Redirect to={'/profile'}/>:
 		<div className={styles.login}>
 			<h1>LOGIN</h1>
 			< LoginForm onSubmit={onSubmit} {...props}/>
