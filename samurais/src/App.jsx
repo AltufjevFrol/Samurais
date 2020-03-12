@@ -7,6 +7,8 @@ import DialogsContainer from "./components/dialogs/dialogsContainer";
 import UsersContainer from "./components/users/usersContainer";
 import ProfileContainer from "./components/profile/profileContainer";
 import Login from "./components/login/login";
+import {connect} from "react-redux";
+import {initializeApp} from "./redux/appReducer";
 
 function App(props) {
 
@@ -24,7 +26,21 @@ function App(props) {
 	);
 }
 
-export default App;
+class AppContainer extends React.Component {
+
+	componentDidMount() {
+		this.props.initializeApp()
+	}
+
+	render (){
+		let isWaiting = !this.props.initiated;
+	 	return(
+	 		isWaiting?<div>LOADING</div>:<App/>
+		)
+	 }
+}
+
+export default connect((state)=>({initiated: state.app.initiated}), {initializeApp}) (AppContainer);
 
 /*
 component={ProfileContainer}*/
