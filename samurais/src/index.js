@@ -8,6 +8,11 @@ import store from './redux/redux-store';
 /*import Context, {Provider} from './context';*/
 import {Provider} from 'react-redux'
 
+setInterval (()=> {
+	store.dispatch({type: 'TEST ACTION'});
+	console.log('trow TEST ACTION')
+}, 1000);
+
 ReactDOM.render(
 	<BrowserRouter >
 		<Provider store={store}>
