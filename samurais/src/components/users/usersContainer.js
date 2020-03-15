@@ -4,6 +4,14 @@ import React from 'react';
 import Users from "./users";
 import withRedirectToLogin from "../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+	curentLinkPart,
+	getCurentPage, getFollowingInProgres, getIsAuth,
+	getIsLoading,
+	getPageSize,
+	getTotalCountUsers,
+	getUsers, getUsersReselect
+} from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
 
@@ -12,7 +20,7 @@ class UsersContainer extends React.Component {
 	}
 
 	render() {
-
+		console.log('start render Users component')
 		return (
 			<Users
 				users={this.props.users}
@@ -35,22 +43,23 @@ class UsersContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+	console.log('start mapStateToProps in Users connect')
 	return {
-		users: state.usersPage.users,
-		totalCountUsers: state.usersPage.totalCountUsers,
-		curentPage: state.usersPage.curentPage,
-		pageSize: state.usersPage.pageSize,
-		isLoading: state.usersPage.isLoading,
-		curentLinkPart: state.usersPage.curentLinkPart,
-		followingInProgres: state.usersPage.followingInProgres,
-		isAuth: state.auth.isAuth
+		users: getUsersReselect(state),
+		totalCountUsers: getTotalCountUsers(state),
+		curentPage: getCurentPage(state),
+		pageSize: getPageSize(state),
+		isLoading: getIsLoading(state),
+		curentLinkPart: curentLinkPart(state),
+		followingInProgres: getFollowingInProgres(state),
+		isAuth: getIsAuth(state)
 	}
 };
 
 export default compose(connect(mapStateToProps, {
-    linkUpCA,
-    linkDownCA,
-    loadUsers, switchPage, changePage, follow, unfollow,
+	linkUpCA,
+	linkDownCA,
+	loadUsers, switchPage, changePage, follow, unfollow,
 }), withRedirectToLogin)(UsersContainer)
 
 /*
