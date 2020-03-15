@@ -26,8 +26,6 @@ export const loginMe = (logData) => {
 
 	return (despatch) => {
 		API.setAuthMe(logData).then((resp) => {
-			console.log(`RESULT CODE ${resp.resultCode}`);
-			console.log(`MESSGE ${resp.messages}`);
 			if (resp.resultCode === 0) {
 				despatch(setCapchaCA(false, ''));
 				API.getAuthMe().then((resp) => {
