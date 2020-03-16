@@ -20,7 +20,7 @@ class UsersContainer extends React.Component {
 	}
 
 	render() {
-		console.log('start render Users component')
+		/*console.log('start render Users component')*/
 		return (
 			<Users
 				users={this.props.users}
