@@ -43,7 +43,7 @@ export const getIsAuth = (state) => state.auth.isAuth;
 * */
 
 export const getUsersReselect = createSelector(getUsers, (usersFromGetUsers)=>{
-	console.log('Start difficult calculate new Users');
+	/*console.log('START difficult calculate new Users');*/
 	return usersFromGetUsers.filter((u)=>true/*возвращаем новый массив с таким же содержимым для примера*/);
 });
 
