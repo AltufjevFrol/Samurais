@@ -66,7 +66,7 @@ export const setStatus = (status) => {
 
 let initialState = {
     userInfo: null,
-    postsData: [],
+    postsData: [{id:1,like:0,post:'Hello!'},{id:2,like:3,post:`What's up?!`}],
     newPostText: '',
     error: null,
     isLoading: true,
