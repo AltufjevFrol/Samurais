@@ -3,7 +3,6 @@ import styles from './post.module.css';
 import heart from '../../../../assets/img/PngItem_6449.png'
 
 function Post(props) {
-	console.log(heart);
 
 	function clickLike() {
 		props.hendlerLike(props.post.id);
