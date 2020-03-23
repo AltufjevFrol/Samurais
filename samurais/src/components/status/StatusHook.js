@@ -35,8 +35,11 @@ const StatusHook = (props) => {
 	};
 
 	const setShow = (formData) => {
+
+		if (formData.status) {
+			props.setStatus(formData.status);
+		}
 		setEditMode(false);
-		props.setStatus(formData.status);
 	};
 
 	/*console.log('Возвращаю разметку');*/
