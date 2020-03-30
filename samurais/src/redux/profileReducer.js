@@ -19,24 +19,24 @@ export const setUserStatusCA = (status) => ({type: SET_USER_STATUS, value: statu
 //export const getUserStatusCA = () => ({type: GET_USER_STATUS});
 
 export const setUserInfo = (id) => {
-    return (despatch) => {
-        despatch(setLoadingCA(true));
-        API.getUser(id).then(resp => {
+	return (despatch) => {
+		despatch(setLoadingCA(true));
+		API.getUser(id).then(resp => {
 
-            despatch(getUserInfoCA(resp));
-            despatch(failGetUserInfoCA(null));
+			despatch(getUserInfoCA(resp));
+			despatch(failGetUserInfoCA(null));
 
-            API.getStatus(id).then((status) => {
-                if (!(status instanceof Object)) {
-                    despatch(setUserStatusCA(status));
-                    despatch(setLoadingCA(false));
-                }
-            });
-        }).catch(e => {
-            despatch(failGetUserInfoCA(e));
-            despatch(setLoadingCA(false));
-        });
-    };
+			API.getStatus(id).then((status) => {
+				if (!(status instanceof Object)) {
+					despatch(setUserStatusCA(status));
+					despatch(setLoadingCA(false));
+				}
+			});
+		}).catch(e => {
+			despatch(failGetUserInfoCA(e));
+			despatch(setLoadingCA(false));
+		});
+	};
 };
 
 /*export const getStatus = (id) => {
@@ -51,101 +51,101 @@ export const setUserInfo = (id) => {
     };
 };*/
 export const setStatus = (status) => {
-    return (despatch) => {
-        despatch(setLoadingCA(true));
-        API.setStatus(status).then((resp) => {
-            if (resp.resultCode === 0) {
-                despatch(setUserStatusCA(status));
-            } else {
-                console.log(resp.message);
-            }
-            despatch(setLoadingCA(false));
-        })
-    };
+	return (despatch) => {
+		despatch(setLoadingCA(true));
+		API.setStatus(status).then((resp) => {
+			if (resp.resultCode === 0) {
+				despatch(setUserStatusCA(status));
+			} else {
+				console.log(resp.message);
+			}
+			despatch(setLoadingCA(false));
+		})
+	};
 };
 
 let initialState = {
-    userInfo: null,
-    postsData: [{id:1,like:0,post:'Hello!'},{id:2,like:3,post:`What's up?!`}],
-    newPostText: '',
-    error: null,
-    isLoading: true,
-    userStatus: null,
+	userInfo: null,
+	postsData: [{id: 1, like: 0, post: 'Hello!'}, {id: 2, like: 3, post: `What's up?!`}],
+	newPostText: '',
+	error: null,
+	isLoading: true,
+	userStatus: null,
 
 };
 
 function profileReducer(state = initialState, action) {
 
-    const addPost = () => {
-        let copyState = {...state};
-        copyState.postsData = [...state.postsData];
-        let lastPost = state.postsData[state.postsData.length - 1];
-        let id = lastPost ? lastPost.id + 1 : 1;
-        let like = 0;
-        let post = state.newPostText;
-        state.newPostText = '';
-        let time = new Date();
-        let PostItem = {id, post, like, time};
-        copyState.postsData.push(PostItem);
-        return copyState;
-    };
+	const addPost = () => {
+		let copyState = {...state};
+		copyState.postsData = [...state.postsData];
+		let lastPost = state.postsData[state.postsData.length - 1];
+		let id = lastPost ? lastPost.id + 1 : 1;
+		let like = 0;
+		let post = state.newPostText;
+		state.newPostText = '';
+		let time = new Date();
+		let PostItem = {id, post, like, time};
+		copyState.postsData.push(PostItem);
+		return copyState;
+	};
 
-    const addLikePost = (idPost) => {
-        let copyState = {
-            ...state,
-            postsData: [...state.postsData]
-        };
+	const addLikePost = (idPost) => {
+		let copyState = {
+			...state,
+			postsData: [...state.postsData]
+		};
 
-        let post;
-        copyState.postsData.forEach((p, i) => {
-            if (p.id === idPost) {
-                post = {p, i};
-            }
-        });
-        if (post) {
-            let copyPost = {...post.p};
-            ++copyPost.like;
-            copyState.postsData.splice(post.i, 1, copyPost);
-        }
-        return copyState;
-    };
-    const addNewSymbolPost = (newText) => {
-        let copyState = {...state};
-        copyState.newPostText = newText;
-        return copyState;
-    };
+		let post;
+		copyState.postsData.forEach((p, i) => {
+			if (p.id === idPost) {
+				post = {p, i};
+			}
+		});
+		if (post) {
+			let copyPost = {...post.p};
+			++copyPost.like;
+			copyState.postsData.splice(post.i, 1, copyPost);
+		}
+		return copyState;
+	};
+	const addNewSymbolPost = (newText) => {
+		let copyState = {...state};
+		copyState.newPostText = newText;
+		return copyState;
+	};
 
-    switch (action.type) {
-        case ADD_POST:
-            return addPost();
-        case ADD_LIKE_POST:
-            return addLikePost(action.idPost);
-        case ADD_NEW_SYMBOL_POST:
-            return addNewSymbolPost(action.newText);
-        case GET_USER_INFO:
-            return {
-                ...state,
-                userInfo: action.userInfo
-            };
-        case FAIL_GET_USER_INFO:
-            return {
-                ...state,
-                error: action.e
-            };
-        case SET_LOADING:
-            return {
-                ...state,
-                isLoading: action.value,
-            };
-        case SET_USER_STATUS:
-            return {
-                ...state,
-                userStatus: action.value,
-            }
+	switch (action.type) {
+		case ADD_POST:
+			return addPost();
+		case ADD_LIKE_POST:
+			return addLikePost(action.idPost);
+		case ADD_NEW_SYMBOL_POST:
+			return addNewSymbolPost(action.newText);
+		case GET_USER_INFO:
+			return {
+				...state,
+				userInfo: action.userInfo
+			};
+		case FAIL_GET_USER_INFO:
+			return {
+				...state,
+				error: action.e
+			};
+		case SET_LOADING:
+			return {
+				...state,
+				isLoading: action.value,
+			};
+		case SET_USER_STATUS:
+			return {
+				...state,
+				userStatus: action.value,
+			};
 
-        default:
-            return state
-    }
+		default:
+			return state;
+	}
 
 };
 

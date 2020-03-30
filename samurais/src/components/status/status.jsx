@@ -38,7 +38,7 @@ class Status extends React.Component {
 			</div>);
 	}
 
-};
+}
 
 export default Status;
 
