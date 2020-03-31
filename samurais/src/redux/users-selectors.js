@@ -8,7 +8,7 @@ import {createSelector} from 'reselect';
 		curentPage: state.usersPage.curentPage,
 		pageSize: state.usersPage.pageSize,
 		isLoading: state.usersPage.isLoading,
-		curentLinkPart: state.usersPage.curentLinkPart,
+		getCurentLinkPart: state.usersPage.getCurentLinkPart,
 		followingInProgres: state.usersPage.followingInProgres,
 		isAuth: state.auth.isAuth
 }
@@ -29,7 +29,7 @@ export const getPageSize = (state) => state.usersPage.pageSize;
 
 export const getIsLoading = (state) => state.usersPage.isLoading;
 
-export const curentLinkPart = (state) => state.usersPage.curentLinkPart;
+export const getCurentLinkPart = (state) => state.usersPage.curentLinkPart;
 
 export const getFollowingInProgres = (state) => state.usersPage.followingInProgres;
 
