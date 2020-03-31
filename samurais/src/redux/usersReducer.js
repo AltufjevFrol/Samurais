@@ -106,7 +106,7 @@ let initialState = {
 	curentPage: 1,
 	pageSize: 50,
 	isLoading: true,
-	curentLinkPart: 1,
+	curentLinkPart: 0,
 	followingInProgres: []
 };
 

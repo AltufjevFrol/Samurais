@@ -5,13 +5,14 @@ import Users from "./users";
 import withRedirectToLogin from "../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
-	curentLinkPart,
+	getCurentLinkPart,
 	getCurentPage, getFollowingInProgres, getIsAuth,
 	getIsLoading,
 	getPageSize,
 	getTotalCountUsers,
 	getUsers, getUsersReselect
 } from "../../redux/users-selectors";
+import UsersNew from "./UsersNew";
 
 class UsersContainer extends React.Component {
 
@@ -22,7 +23,7 @@ class UsersContainer extends React.Component {
 	render() {
 		/*console.log('start render Users component')*/
 		return (
-			<Users
+			<UsersNew
 				users={this.props.users}
 				totalCountUsers={this.props.totalCountUsers}
 				pageSize={this.props.pageSize}
@@ -50,7 +51,7 @@ const mapStateToProps = (state) => {
 		curentPage: getCurentPage(state),
 		pageSize: getPageSize(state),
 		isLoading: getIsLoading(state),
-		curentLinkPart: curentLinkPart(state),
+		curentLinkPart: getCurentLinkPart(state),
 		followingInProgres: getFollowingInProgres(state),
 		isAuth: getIsAuth(state)
 	}
