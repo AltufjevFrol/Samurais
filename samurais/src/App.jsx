@@ -21,9 +21,7 @@ import('./components/users/testDinamicImport.js').then((TDI)=>{
 });
 const UsersContainer = React.lazy(()=>import("./components/users/usersContainer"));
 
-/*const UsersContainer
-const Login*/
-
+console.log(process.env.PUBLIC_URL);
 
 function App(props) {
 
